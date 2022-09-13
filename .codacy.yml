@@ -1,0 +1,6 @@
+---
+exclude_paths:
+  - Assets/PostProcessing/**/*
+  - packages/**/*
+  - Assets/Editor/*
+  - Assets/Shaders/**/*

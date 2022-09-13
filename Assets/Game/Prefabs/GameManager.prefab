@@ -1,0 +1,239 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2930843589904270399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2930843589904270392}
+  - component: {fileID: 2930843589904270394}
+  - component: {fileID: 2930843589904270393}
+  - component: {fileID: 3185128894360282708}
+  - component: {fileID: 3169741463954096677}
+  - component: {fileID: 1597972945}
+  - component: {fileID: 1597972944}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2930843589904270392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2930843589904270394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9682924645a1a5e46829047272c11508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modManager: {fileID: 3169741463954096677}
+  modPath: 
+--- !u!114 &2930843589904270393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d621e9693afc54eb6ddbd08242179b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atlas: {fileID: 0}
+  blocks:
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: d703e9ff4f9496a43a5ff91114a05647, type: 3}
+      face: 6
+    textures:
+    - {fileID: 2800000, guid: d703e9ff4f9496a43a5ff91114a05647, type: 3}
+    id: 0
+    name: Coal Ore
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Dirt
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 40148faa9701f5f4b938ab27195ef688, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Glass
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: be15989554de1464da87bafdab0e9485, type: 3}
+      face: 0
+    - texture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+      face: 1
+    - texture: {fileID: 2800000, guid: 8ae9d09ccb8f9b64281d265c7fc9be8d, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Grass Block
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 0decf0ff517e40541beda4cf942c8220, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Oak Leaves
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+      face: 0
+    - texture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+      face: 1
+    - texture: {fileID: 2800000, guid: bb55a54e2ccec314aaf0f0efaafe0aa3, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Oak Log
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 0d995eb5ab33ed442a6275bd1e2c2332, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Sand
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 1d9c29672d3d9c64590e5947ca333cfb, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Stone
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: 5026eef4dd4553341b9953026ac49303, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Water
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  - blockTextures:
+    - texture: {fileID: 2800000, guid: a2a79b454ccf21447b5a981741c85039, type: 3}
+      face: 6
+    textures: []
+    id: 0
+    name: Bedrock
+    unbreakable: 0
+    isSolid: 1
+    blastResistance: 1
+    hardness: 1
+  tUnit: 0.125
+--- !u!114 &3185128894360282708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2a8262d9ec1a541aca512dc2eb7cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockManager: {fileID: 2930843589904270393}
+  modManager: {fileID: 3169741463954096677}
+  api: {fileID: 2930843589904270394}
+  worldName: Default
+--- !u!114 &3169741463954096677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e87f466a715eb46a35f9cd4775c4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1597972945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &1597972944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930843589904270399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
