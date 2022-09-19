@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using System;
-using System.Text;
+using Mirror;
 using VoxelCraft.World.Chunk;
 using VoxelCraft.Compression;
 using VoxelCraft.World.Block;

@@ -22,17 +22,17 @@ namespace VoxelCraft.World
 		public WorldSettings worldSettings;
 
 		[SerializeField] private GameObject _chunkPrefab;
-		private static Dictionary<ChunkPos, DataChunk> _chunks = new Dictionary<ChunkPos, DataChunk>();
-		private static Dictionary<ColumnPos, DataColumn> _columns = new Dictionary<ColumnPos, DataColumn>();
-		private static Dictionary<ChunkPos, DataChunk> _offloadChunks = new Dictionary<ChunkPos, DataChunk>();
+		private Dictionary<ChunkPos, DataChunk> _chunks = new Dictionary<ChunkPos, DataChunk>();
+		private Dictionary<ColumnPos, DataColumn> _columns = new Dictionary<ColumnPos, DataColumn>();
+		private Dictionary<ChunkPos, DataChunk> _offloadChunks = new Dictionary<ChunkPos, DataChunk>();
 		private SimplePriorityQueue<Chunk.Chunk> _loadQueue = new SimplePriorityQueue<Chunk.Chunk>();
 		private List<Dimension.Dimension> dimensions = new List<Dimension.Dimension>();
 		private bool _rendering;
 
 		/// <summary>The size (width, breadth, and height) of chunks.</summary>
 		public const int chunkSize = 16;
-		[SerializeField] private static int _viewRangeHorizontal = 3;
-		[SerializeField] private static int _viewRangeVertical = 3;
+		[SerializeField] private int _viewRangeHorizontal = 3;
+		[SerializeField] private int _viewRangeVertical = 3;
 		private static ChunkPos _playerPos;
 
 		void Start()
@@ -43,14 +43,9 @@ namespace VoxelCraft.World
 
 			GenerateChunks();
 
-#if UNITY_EDITOR
-			UnityEditor.SceneView.FocusWindowIfItsOpen(typeof(UnityEditor.SceneView));
-#endif
+			worldPath = string.Concat(Application.persistentDataPath, "/Worlds/", gameManager.worldName, "/");
 
-			worldPath = Application.persistentDataPath + "/Worlds/" + gameManager.worldName + "/";
-
-			if (!Directory.Exists(worldPath))
-				Directory.CreateDirectory(worldPath);
+			worldSettings = new WorldSettings(worldPath);
 
 			StartCoroutine(SaveChunks());
 		}
@@ -73,6 +68,7 @@ namespace VoxelCraft.World
 			SaveGame.SaveWorld(_chunks, worldPath);
 		}
 
+        [Server]
 		IEnumerator SaveChunks()
 		{
 			foreach (KeyValuePair<ChunkPos, DataChunk> chunk in _chunks)
@@ -88,6 +84,7 @@ namespace VoxelCraft.World
 			}
 		}
 
+        [Server]
 		private void RenderThread()
 		{
 			while (_loadQueue.Count > 0)
@@ -111,9 +108,16 @@ namespace VoxelCraft.World
 			_rendering = false;
 		}
 
+		[Command(requiresAuthority = false)]
+		public void CmdGenerateChunks()
+        {
+
+        }
+
 		/// <summary>
 		/// Generates all possible chunk positions that are in view range if a chunk does not already exist at that position.
 		/// </summary>
+		[Server]
 		private void GenerateChunks()
 		{
 			// Which direction is the player pointing in?
@@ -204,6 +208,8 @@ namespace VoxelCraft.World
 
 							// Store in map
 							_chunks[pos] = newDataChunk;
+
+							NetworkServer.Spawn(newChunk);
 						}
 					}
 				}
@@ -225,9 +231,16 @@ namespace VoxelCraft.World
 				return 0;
         }
 
+		[Command(requiresAuthority = false)]
+		public void CmdPingChunks()
+		{
+
+		}
+
 		/// <summary>
 		/// Checks whether chunks are still in view range or not, and destroys them if need be.
 		/// </summary>
+		[Server]
 		private void PingChunks()
 		{
 			List<ChunkPos> temp = new List<ChunkPos>();
@@ -272,34 +285,41 @@ namespace VoxelCraft.World
 			}
 		}
 
-		/// <summary>
-		/// Safely removes a <c>Chunk</c> from the chunk dictionary.
-		/// </summary>
-		/// <param name="pos">The chunk position.</param>
+        /// <summary>
+        /// Safely removes a <c>Chunk</c> from the chunk dictionary.
+        /// </summary>
+        /// <param name="pos">The chunk position.</param>
+        [Server]
 		private void DestroyChunk(ChunkPos pos)
 		{
-			Destroy(_chunks[pos].GetChunk()); // Delete corresponding gameobject
-											  //_offloadChunks[pos] = _chunks[pos]; //Move chunk data to offload—technically should be disk or something
+			NetworkServer.Destroy(_chunks[pos].GetChunk().gameObject); // Delete corresponding gameobject
+			
+			_offloadChunks[pos] = _chunks[pos]; //Move chunk data to offload—technically should be disk or something
+
+			SaveGame.SaveChunk(_chunks[pos], worldPath);
+
 			_chunks.Remove(pos); // Remove chunk from main list
 		}
 
-		//TODO: Optimize this for external chunks
+        //TODO: Optimize this for external chunks
 
-		/// <summary>
-		/// Fetches a block that has already been generated in the past.
-		/// </summary>
-		/// <param name="pos">The block position.</param>
-		/// <returns>ID of block at given position.</returns>
+        /// <summary>
+        /// Fetches a block that has already been generated in the past.
+        /// </summary>
+        /// <param name="pos">The block position.</param>
+        /// <returns>ID of block at given position.</returns>
+        [Server]
 		public Block.Block GetBlock(BlockPos pos)
 		{
 			return GenerateBlock(pos);
 		}
 
-		/// <summary>
-		/// Generates a block for a given position.
-		/// </summary>
-		/// <param name="pos">The block position.</param>
-		/// <returns>ID of generated block at given position.</returns>
+        /// <summary>
+        /// Generates a block for a given position.
+        /// </summary>
+        /// <param name="pos">The block position.</param>
+        /// <returns>ID of generated block at given position.</returns>
+        [Server]
 		public Block.Block GenerateBlock(BlockPos pos)
 		{
 			int x = pos.GetWorldX();
@@ -351,12 +371,13 @@ namespace VoxelCraft.World
 			}
 		}
 
-		/// <summary>
-		/// Generates the topological height of the stone layer for a given coordinate.
-		/// </summary>
-		/// <param name="x">X coordinate.</param>
-		/// <param name="z">Y coordinate.</param>
-		/// <returns>Height of terrain at given position.</returns>
+        /// <summary>
+        /// Generates the topological height of the stone layer for a given coordinate.
+        /// </summary>
+        /// <param name="x">X coordinate.</param>
+        /// <param name="z">Y coordinate.</param>
+        /// <returns>Height of terrain at given position.</returns>
+        [Server]
 		public static int GenerateTopology(int x, int z)
 		{
 			// Topology
@@ -377,16 +398,17 @@ namespace VoxelCraft.World
 			return (int)stone;
 		}
 
-		/// <summary>
-		/// Returns simplex noise from a given point, modulated by some variables.
-		/// </summary>
-		/// <param name="x">X coordinate.</param>
-		/// <param name="y">Y coordinate.</param>
-		/// <param name="z">Z coordinate.</param>
-		/// <param name="scale">Coordinate scaling.</param>
-		/// <param name="height">Maximum height variation.</param>
-		/// <param name="power">"sharpness".</param>
-		/// <returns>Simplex noise from given point.</returns>
+        /// <summary>
+        /// Returns simplex noise from a given point, modulated by some variables.
+        /// </summary>
+        /// <param name="x">X coordinate.</param>
+        /// <param name="y">Y coordinate.</param>
+        /// <param name="z">Z coordinate.</param>
+        /// <param name="scale">Coordinate scaling.</param>
+        /// <param name="height">Maximum height variation.</param>
+        /// <param name="power">"sharpness".</param>
+        /// <returns>Simplex noise from given point.</returns>
+        [Server]
 		public static float SimplexNoise(float x, float y, float z, float scale, float height, float power)
 		{
 			float rValue;
@@ -405,7 +427,7 @@ namespace VoxelCraft.World
 		/// Gets view range.
 		/// </summary>
 		/// <returns>View range.</returns>
-		public static int GetViewRange()
+		public int GetViewRange()
 		{
 			return _viewRangeHorizontal;
 		}
@@ -415,7 +437,7 @@ namespace VoxelCraft.World
 		/// </summary>
 		/// <param name="pos">Chunk position.</param>
 		/// <returns><c>DataChunk</c> that exists at <paramref name="pos"/>.</returns>
-		public static DataChunk GetChunk(ChunkPos pos)
+		public DataChunk GetChunk(ChunkPos pos)
 		{
 			DataChunk chunk;
 			_chunks.TryGetValue(pos, out chunk);
@@ -427,7 +449,7 @@ namespace VoxelCraft.World
 		/// </summary>
 		/// <param name="pos">Column position.</param>
 		/// <returns><c>DataColumn</c> that exists at <paramref name="pos"/>.</returns>
-		public static DataColumn GetColumn(ColumnPos pos)
+		public DataColumn GetColumn(ColumnPos pos)
 		{
 			DataColumn column;
 			_columns.TryGetValue(pos, out column);

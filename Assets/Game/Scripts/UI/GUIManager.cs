@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using VoxelCraft.UI.Screens;
 using UnityEngine;
 
 namespace VoxelCraft.UI
@@ -9,27 +10,23 @@ namespace VoxelCraft.UI
         [HideInInspector]
         public GameManager gameManager;
 
-        public GameObject menuPanel;
-        public GameObject settingsPanel;
-        public GameObject pausePanel;
-        public GameObject worldSelectionPanel;
-        public GameObject worldCreationPanel;
-        public GameObject worldSettingsPanel;
-        public GameObject joiningWorldPanel;
-        public GameObject serverListPanel;
-        public GameObject addServerPanel;
-        public GameObject joiningServerPanel;
+        public CreateWorldScreen createWorldScreen;
+        public WorldListScreen worldListScreen;
+        public MainMenuScreen mainMenuScreen;
+        public JoinWorldScreen joinWorldScreen;
 
         public void Start()
         {
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
+            openMainMenuScreen();
+
             DontDestroyOnLoad(gameObject);
         }
 
-        public void CreateWorld()
+        public void openMainMenuScreen()
         {
-
+            mainMenuScreen.openMainMenuScreen(gameManager, this);
         }
     }
 }

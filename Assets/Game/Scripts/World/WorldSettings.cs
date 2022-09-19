@@ -1,6 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace VoxelCraft.World
 {
@@ -18,6 +18,7 @@ namespace VoxelCraft.World
         public GameRule daylightCycle;
         public GameRule weatherCycle;
         public GameRule gameSpeed;
+        public string creationDate;
 
         public WorldSettings(string worldFilePath)
         {
@@ -35,7 +36,7 @@ namespace VoxelCraft.World
 
         public void loadFromFile(string worldFilePath)
         {
-            string[] worldFile = File.ReadAllLines(worldFilePath);
+            string[] worldFile = File.ReadAllLines(string.Concat(worldFilePath, "config.conf"));
 
             foreach (string line in worldFile)
             {
@@ -82,12 +83,18 @@ namespace VoxelCraft.World
                     case "Game Speed":
                         gameSpeed = new GameRule("Game Speed", "The speed of the game", float.Parse(settingValue));
                         break;
+                    case "Creation Date":
+                        creationDate = settingValue;
+                        break;
                 }
             }
         }
 
         public void saveToFile(string worldFilePath)
         {
+            if (!Directory.Exists(worldFilePath))
+                Directory.CreateDirectory(worldFilePath);
+
             List<string> settings = new List<string>();
 
             settings.Add(string.Concat("World Name: ", worldName));
@@ -102,8 +109,9 @@ namespace VoxelCraft.World
             settings.Add(string.Concat("Daylight Cycle: ", daylightCycle.getValueAsString()));
             settings.Add(string.Concat("Weather Cycle: ", weatherCycle.getValueAsString()));
             settings.Add(string.Concat("Game Speed: ", gameSpeed.getValueAsString()));
+            settings.Add(string.Concat("Creation Date: ", DateTime.UtcNow.ToString()));
 
-            File.WriteAllLines(worldFilePath, settings.ToArray());
+            File.WriteAllLines(string.Concat(worldFilePath, "config.conf"), settings.ToArray());
         }
 
         public Difficulty stringToDifficulty(string difficultyString)
@@ -253,13 +261,13 @@ namespace VoxelCraft.World
 
         public string getValueAsString()
         {
-            if (intValue != 0)
+            if (type == GameRuleType.INTEGER)
                 return intValue.ToString();
-            else if (boolValue != false)
+            else if (type == GameRuleType.BOOLEAN)
                 return boolValue.ToString();
-            else if (stringValue != "")
+            else if (type == GameRuleType.STRING)
                 return stringValue;
-            else if (floatValue != 0.0f)
+            else if (type == GameRuleType.FLOAT)
                 return floatValue.ToString();
             else
                 return "";
