@@ -2,6 +2,7 @@
 using VoxelCraft.World;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
 namespace VoxelCraft.UI.Screens
 {
@@ -19,6 +20,7 @@ namespace VoxelCraft.UI.Screens
         public GameObject hardcoreImageFade;
         public GameObject survivalImage;
         public GameObject survivalImageFade;
+        public Toggle survivalToggle;
         public GameObject creativeImage;
         public GameObject creativeImageFade;
 
@@ -26,40 +28,65 @@ namespace VoxelCraft.UI.Screens
         public GameObject flatWorldImageFade;
         public GameObject normalWorldImage;
         public GameObject normalWorldImageFade;
+        public Toggle normalWorldToggle;
         public GameObject voidWorldImage;
         public GameObject voidWorldImageFade;
 
         private WorldSettings worldSettings;
+        private GameManager gameManager;
+        private GUIManager guiManager;
+
+        public GameObject createWorldScreen;
 
         private Difficulty difficulty;
 
-        public void OpenCreateWorldScreen()
+        public void openCreateWorldScreen(GameManager gameManager, GUIManager guiManager)
         {
+            this.gameManager = gameManager;
+            this.guiManager = guiManager;
             worldSettings = new WorldSettings();
 
             difficulty = Difficulty.NORMAL;
 
             difficultyText.text = string.Concat("Difficulty: " + worldSettings.difficultyToString(difficulty));
-        }
 
-        public void Start()
-        {
-            worldSettings = new WorldSettings();
+            survivalToggle.isOn = true;
+            survivalImgPressed();
+            normalWorldToggle.isOn = true;
+            normalWorldImgPressed();
 
-            difficulty = Difficulty.NORMAL;
-
-            difficultyText.text = string.Concat("Difficulty: " + worldSettings.difficultyToString(difficulty));
+            createWorldScreen.SetActive(true);
         }
 
         public void createWorld()
         {
-            worldSettings.worldName = worldName.text;
+            if (worldName.text != "")
+                worldSettings.worldName = worldName.text;
+            else
+                worldSettings.worldName = "World";
             worldSettings.worldVersion = Application.version;
             worldSettings.worldSeed = worldSeed.text.GetHashCode();
             worldSettings.cheatsEnabled = cheatsToggle.isOn;
             worldSettings.worldType = getWorldType();
             worldSettings.worldGamemode = getGamemode();
             worldSettings.difficulty = difficulty;
+
+            worldSettings.saveToFile(string.Concat(Application.persistentDataPath, "/Worlds/", worldName.text, "/"));
+
+            gameManager.worldName = worldName.text;
+
+            guiManager.joinWorldScreen.openJoinWorldScreen(gameManager, guiManager);
+
+            GameObject.Find("NetworkManager").GetComponent<NetworkManager>().StartHost();
+
+            createWorldScreen.SetActive(false);
+        }
+
+        public void cancelButton()
+        {
+            guiManager.worldListScreen.openWorldListScreen(gameManager, guiManager);
+
+            createWorldScreen.SetActive(false);
         }
 
         public void nextDifficulty()
@@ -96,32 +123,74 @@ namespace VoxelCraft.UI.Screens
 
         public void survivalImgPressed()
         {
+            survivalImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            survivalImageFade.SetActive(false);
 
+            creativeImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            creativeImageFade.SetActive(true);
+
+            hardcoreImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            hardcoreImageFade.SetActive(true);
         }
 
         public void creativeImgPressed()
         {
+            survivalImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            survivalImageFade.SetActive(true);
 
+            creativeImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            creativeImageFade.SetActive(false);
+
+            hardcoreImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            hardcoreImageFade.SetActive(true);
         }
 
         public void hardcoreImgPressed()
         {
+            survivalImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            survivalImageFade.SetActive(true);
 
+            creativeImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            creativeImageFade.SetActive(true);
+
+            hardcoreImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            hardcoreImageFade.SetActive(false);
         }
 
         public void normalWorldImgPressed()
         {
+            normalWorldImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            normalWorldImageFade.SetActive(false);
 
+            flatWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            flatWorldImageFade.SetActive(true);
+
+            voidWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            voidWorldImageFade.SetActive(true);
         }
 
         public void flatWorldImgPressed()
         {
+            normalWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            normalWorldImageFade.SetActive(true);
 
+            flatWorldImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            flatWorldImageFade.SetActive(false);
+
+            voidWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            voidWorldImageFade.SetActive(true);
         }
 
         public void voidWorldImgPressed()
         {
+            normalWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            normalWorldImageFade.SetActive(true);
 
+            flatWorldImage.transform.localScale = new Vector3(0.75f, 0.75f, 1f);
+            flatWorldImageFade.SetActive(true);
+
+            voidWorldImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            voidWorldImageFade.SetActive(false);
         }
 
         public WorldType getWorldType()

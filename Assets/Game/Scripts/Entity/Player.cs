@@ -4,7 +4,7 @@ namespace VoxelCraft.Entity
 {
     public class Player : Entity
     {
-        public Transform camera;
+        public Transform playerCam;
         private World.World world;
 
         public float baseWalkSpeed;
@@ -31,7 +31,7 @@ namespace VoxelCraft.Entity
             velocity += Vector3.up * baseGravity * Time.deltaTime;
 
             transform.Rotate(Vector3.up * mouseHorizontal);
-            camera.Rotate(Vector3.right * -mouseVertical);
+            playerCam.Rotate(Vector3.right * -mouseVertical);
             transform.Translate(velocity, Space.World);
         }
 
