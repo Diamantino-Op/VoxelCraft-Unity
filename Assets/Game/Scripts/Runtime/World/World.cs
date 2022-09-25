@@ -9,6 +9,7 @@ using VoxelCraft.World.Block;
 using VoxelCraft.IO;
 using System.IO;
 using Mirror;
+using System.Timers;
 
 namespace VoxelCraft.World
 {
@@ -35,6 +36,8 @@ namespace VoxelCraft.World
 		[SerializeField] private int _viewRangeVertical = 3;
 		private static ChunkPos _playerPos;
 
+		private System.Timers.Timer saveChunkTimer = new System.Timers.Timer();
+
 		void Start()
 		{
 			gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -45,7 +48,9 @@ namespace VoxelCraft.World
 
 				worldSettings = new WorldSettings(worldPath);
 
-				StartCoroutine(SaveChunks());
+				saveChunkTimer.Elapsed += new ElapsedEventHandler(StartSaveChunkThread);
+				saveChunkTimer.Interval = 30000;
+				saveChunkTimer.Start();
 			}
 
 			if (isClient)
@@ -80,11 +85,20 @@ namespace VoxelCraft.World
 		public void OnDestroy()
 		{
 			if (isServer)
+			{
 				SaveGame.SaveWorld(_chunks, worldPath);
+				saveChunkTimer.Stop();
+			}
 		}
 
         [Server]
-		IEnumerator SaveChunks()
+		private void StartSaveChunkThread(object source, ElapsedEventArgs e)
+        {
+			new Thread(SaveChunks).Start();
+		}
+
+        [Server]
+		private void SaveChunks()
 		{
 			foreach (KeyValuePair<ChunkPos, DataChunk> chunk in _chunks)
 			{
@@ -94,8 +108,6 @@ namespace VoxelCraft.World
 
 					chunk.Value.hasChanged = false;
 				}
-
-				yield return null;
 			}
 		}
 

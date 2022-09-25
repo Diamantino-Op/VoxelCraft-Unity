@@ -34,9 +34,6 @@ namespace VoxelCraft.World.Chunk
 			_blocks = new Block.Block[World.chunkSize, World.chunkSize, World.chunkSize];
 			_column = column;
 
-			if (_blocks == null)
-				Debug.Log(chunk.gameObject.ToString() + " Blocks' null");
-
 			_generated = false;
 			_density = 0;
 		}
@@ -48,9 +45,6 @@ namespace VoxelCraft.World.Chunk
 			_blocks = blocks;
 			_column = column;
 			this.dataVersion = dataVersion;
-
-			if (_blocks == null)
-				Debug.Log(chunk.gameObject.ToString() + " Blocks' null");
 
 			_generated = false;
 			_density = 0;

@@ -19,7 +19,6 @@ namespace VoxelCraft.UI.Screens
 
         public void openWorldListScreen()
         {
-            Debug.Log("SinglePlayer Button");
             guiManager.worldListScreen.openWorldListScreen(gameManager, guiManager);
 
             mainMenuScreen.SetActive(false);
@@ -27,17 +26,15 @@ namespace VoxelCraft.UI.Screens
 
         public void openServerListScreen()
         {
-            Debug.Log("MultiPlayer Button");
         }
 
         public void openOptionsScreen()
         {
-            Debug.Log("Options Button");
+            
         }
 
         public void quitButton()
         {
-            Debug.Log("Quit");
             Application.Quit();
         }
     }
