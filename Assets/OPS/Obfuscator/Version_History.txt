@@ -1,7 +1,30 @@
 ﻿Version History:
 
+5.0.4:
+- Fix: Json serialization for public fields - Class requires Serializable Attribute.
+- Fix: Dependency fix at release build.
+
+5.0.3:
+- Fix: OPS.Obfusator.dll assembly was loaded as to obfuscate assembly. Is now a helper assembly.
+
+5.0.2:
+- Fix: Reference bug to OPS.Obfusator.dll.
+
+5.0.1:
+- Improved Gui/Animation method recognition.
+- Obfuscator UI improvement.
+- OPS.Obfusator.dll is now an AssemblyDefinitionFile.
+- Fix: Removed OPS.Obfusator.dll from release builds.
+
+5.0
+
+== Obfuscator 5.0 Introduction ==
+The Obfuscator 5.0 version optimizes the MonoBehaviour protection and brings the obfuscation through
+new features on a new level. By introducing ControlFlow Obfuscation, method bodies will be scrambled
+and transformed into a nearly human unreadable form. An also new feature is the AntiTampering Obfuscation.
+This feature builds a system of micro-checks to prevent modification and keeps hacker away.
+
 4.0.6:
-- Fix: While cache generating some NullPointer might happen.
 - Fix: Building Addressable Assets will no longer trigger the obfuscator and a so failed build.
 - Add: You can now enter a custom log directory, instead of a file path only. In this directory, the log will be seperated by platform.
 

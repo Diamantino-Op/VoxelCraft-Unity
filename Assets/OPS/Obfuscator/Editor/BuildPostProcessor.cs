@@ -8,69 +8,71 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-using UnityEditor.Callbacks;
+using UnityEditor.UnityLinker;
 
 namespace OPS.Obfuscator
 {
-
-#if UNITY_2018_2_OR_NEWER
-    public class BuildPostProcessor : IPreprocessBuildWithReport, IPostBuildPlayerScriptDLLs, IFilterBuildAssemblies
-#else
-	public class BuildPostProcessor : IPreprocessBuildWithReport, IPostprocessBuildWithReport
-#endif
+    public class BuildPostProcessor : IPreprocessBuildWithReport, IFilterBuildAssemblies, IPostBuildPlayerScriptDLLs, IUnityLinkerProcessor, IPostprocessBuildWithReport
     {
         // Defines if an Obfuscation Process took place.
         private static bool hasObfuscated = false;
-
-        //Revert Unity Assets and external Assemblies, if postprocess got not called or update got cleared!
-        [InitializeOnLoad]
-        public static class OnInitializeOnLoad
-        {
-            static OnInitializeOnLoad()
-            {
-                EditorApplication.update += RestoreAssemblies;
-            }
-        }
 
         public int callbackOrder
         {
             get { return int.MaxValue; }
         }
 
-#if UNITY_2018_2_OR_NEWER
-        public string[] OnFilterAssemblies(BuildOptions _BuildOptions, string[] _Assemblies)
+        private static OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings PrepareEditorSettings()
         {
-            if (UnityEngine.Debug.isDebugBuild)
-            {
-                // Return all assemblies, include OPS.Obfuscator.dll in Debug/Development build.
-                return _Assemblies;
-            }
-            else
-            {
-				// TODO: Currently a bug.
-                // Remove OPS.Obfuscator.dll in Release build.
-                // String[] var_Returned_Assemblies = _Assemblies.Where(a => !a.Contains("OPS.Obfuscator.dll")).ToArray();
-
-                // return var_Returned_Assemblies;
-				return _Assemblies;
-            }
-        }
-#endif
-
-        public void OnPreprocessBuild(BuildReport report)
-        {
-            // Settings
             OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = new Editor.Settings.Unity.Editor.EditorSettings();
+
+            return var_EditorSettings;
+        }
+
+        private static OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings PrepareBuildSettings(BuildReport _Report)
+        {
             OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = new Editor.Settings.Unity.Build.BuildSettings();
             var_BuildSettings.BuildTarget = UnityEditor.EditorUserBuildSettings.activeBuildTarget;
+            var_BuildSettings.BuildTargetGroup = UnityEditor.EditorUserBuildSettings.selectedBuildTargetGroup;
+            var_BuildSettings.UnityBuildReport = _Report;
+            var_BuildSettings.IsIL2CPPBuild = PlayerSettings.GetScriptingBackend(UnityEditor.EditorUserBuildSettings.selectedBuildTargetGroup) == ScriptingImplementation.IL2CPP;
+            var_BuildSettings.IsCompressed = !typeof(UnityEditor.EditorUserBuildSettings).GetMethod("GetCompressionType", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static).Invoke(null, new object[] { UnityEditor.EditorUserBuildSettings.selectedBuildTargetGroup }).ToString().Equals("None");
+            var_BuildSettings.BuildIntoProject = (UnityEditor.EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneOSX && UnityEditor.EditorUserBuildSettings.GetPlatformSettings("OSXUniversal", "CreateXcodeProject").Equals("true"))
+                || (UnityEditor.EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows && UnityEditor.EditorUserBuildSettings.GetPlatformSettings("Standalone", "CreateSolution").Equals("true"))
+                || (UnityEditor.EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64 && UnityEditor.EditorUserBuildSettings.GetPlatformSettings("Standalone", "CreateSolution").Equals("true"))
+                || (UnityEditor.EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneLinux64 && UnityEditor.EditorUserBuildSettings.GetPlatformSettings("Standalone", "CreateSolution").Equals("true"));
 
-            // PreBuild
-            bool var_NoError = OPS.Obfuscator.Editor.Obfuscator.PreBuild(var_EditorSettings, var_BuildSettings);
+            return var_BuildSettings;
         }
 
-        //Obfuscate Assemblies after first scene build.
-        [PostProcessScene(1)]
-        public static void OnPostProcessScene()
+        public void OnPreprocessBuild(BuildReport _Report)
+        {
+            // Settings
+            OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = PrepareEditorSettings();
+            OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = PrepareBuildSettings(_Report);
+
+            // Init
+            OPS.Obfuscator.Editor.Obfuscator.Init();
+            hasObfuscated = false;
+
+            try
+            {
+                // Pre Build
+                OPS.Obfuscator.Editor.Obfuscator.Singleton.PreBuild(var_EditorSettings, var_BuildSettings);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogError("[OPS] Error: " + e.ToString());
+            }
+        }
+
+        public string[] OnFilterAssemblies(BuildOptions _BuildOptions, string[] _Assemblies)
+        {
+			// Return all assemblies - Filtered with build.
+			return _Assemblies;
+        }
+
+        public void OnPostBuildPlayerScriptDLLs(BuildReport _Report)
         {
             if (!hasObfuscated)
             {
@@ -81,18 +83,11 @@ namespace OPS.Obfuscator
                         UnityEditor.EditorApplication.LockReloadAssemblies();
 
                         // Settings
-                        OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = new Editor.Settings.Unity.Editor.EditorSettings();
-                        OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = new Editor.Settings.Unity.Build.BuildSettings();
-                        var_BuildSettings.BuildTarget = UnityEditor.EditorUserBuildSettings.activeBuildTarget;
+                        OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = PrepareEditorSettings();
+                        OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = PrepareBuildSettings(_Report);
 
-                        // PreBuild
-                        bool var_NoError = OPS.Obfuscator.Editor.Obfuscator.Obfuscate(var_EditorSettings, var_BuildSettings);
-
-                        if (var_NoError)
-                        {
-                            EditorApplication.update += RestoreAssemblies;
-                        }
-
+                        // Obfuscate
+                        OPS.Obfuscator.Editor.Obfuscator.Singleton.PostAssemblyBuild(var_EditorSettings, var_BuildSettings);
                         hasObfuscated = true;
                     }
                     catch (Exception e)
@@ -107,50 +102,57 @@ namespace OPS.Obfuscator
             }
         }
 
-        //Revert Unity Assets and external Assemblies. 
-#if UNITY_2018_2_OR_NEWER
-        public void OnPostBuildPlayerScriptDLLs(BuildReport report)
-#else
-		public void OnPostprocessBuild(BuildReport report)
-#endif
+        public string GenerateAdditionalLinkXmlFile(BuildReport _Report, UnityLinkerBuildPipelineData _Data)
         {
             if (hasObfuscated)
-            {
-                RestoreAssemblies();
-            }
-
-            RefreshAll();
-        }
-
-        private static void RestoreAssemblies()
-        {
-            if (BuildPipeline.isBuildingPlayer == false)
             {
                 try
                 {
                     // Settings
-                    OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = new Editor.Settings.Unity.Editor.EditorSettings();
+                    OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = PrepareEditorSettings();
+                    OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = PrepareBuildSettings(_Report);
 
-                    // PreBuild
-                    bool var_NoError = OPS.Obfuscator.Editor.Obfuscator.PostBuild(var_EditorSettings);
-
-                    EditorApplication.update -= RestoreAssemblies;
+                    // Post Build
+                    OPS.Obfuscator.Editor.Obfuscator.Singleton.PostAssetsBuild(var_EditorSettings, var_BuildSettings);
                 }
                 catch (Exception e)
                 {
-                    UnityEngine.Debug.LogWarning("[OPS.OBF] " + e.ToString());
+                    UnityEngine.Debug.LogError("[OPS] Error: " + e.ToString());
                 }
             }
+
+            return null;
         }
 
-        public static void ManualRestore()
+#if UNITY_2021_2_OR_NEWER
+#else
+        public void OnBeforeRun(BuildReport report, UnityLinkerBuildPipelineData data)
         {
-            RestoreAssemblies();
         }
 
-        private static void RefreshAll()
+        public void OnAfterRun(BuildReport report, UnityLinkerBuildPipelineData data)
         {
-            hasObfuscated = false;
+        }
+#endif
+
+        public void OnPostprocessBuild(BuildReport _Report)
+        {
+            if (hasObfuscated)
+            {
+                try
+                {
+                    // Settings
+                    OPS.Obfuscator.Editor.Settings.Unity.Editor.EditorSettings var_EditorSettings = PrepareEditorSettings();
+                    OPS.Obfuscator.Editor.Settings.Unity.Build.BuildSettings var_BuildSettings = PrepareBuildSettings(_Report);
+
+                    // Post Build
+                    OPS.Obfuscator.Editor.Obfuscator.Singleton.PostBuild(var_EditorSettings, var_BuildSettings);
+                }
+                catch (Exception e)
+                {
+                    UnityEngine.Debug.LogError("[OPS] Error: " + e.ToString());
+                }
+            }
         }
     }
 }

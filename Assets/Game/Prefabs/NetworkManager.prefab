@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2656174013436457436}
   - component: {fileID: 3870092919888858123}
   - component: {fileID: -3710719541653089372}
-  - component: {fileID: 819606579}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -107,19 +106,5 @@ MonoBehaviour:
       m_Calls: []
   serverUsername: VoxelCraftServer
   serverPassword: V0x3lCr4ft
-  username: 
-  password: 
---- !u!114 &819606579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2656174013436457410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
+  username: VoxelCraftServer
+  password: V0x3lCr4ft
