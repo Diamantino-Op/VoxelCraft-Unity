@@ -27,8 +27,3 @@ comes with a "Error Stack Trace" window. Here you can load a mapping file (you
 have to activate it in the settings) and enter a obfuscated stack trace.
 Pressing "Deobfuscate" the obfuscator will try to deobfuscate the stack trace.
 You can find it in the Unity Editor Menu OPS->Obfuscator->Error Stack Trace.
-
-== Obfuscation before 2018.1 ==
-
-In the OPS directory you can find a zip file, containing the Obfuscator 3, which is
-compatible for version 5 to 2018.1.

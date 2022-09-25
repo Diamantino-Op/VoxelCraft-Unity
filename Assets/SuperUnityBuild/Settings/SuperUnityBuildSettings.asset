@@ -1,0 +1,343 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7594961136505483749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2786f6b2301a94f4288672ff5305244c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 5
+    name: Windows x86
+    enabled: 0
+    binaryNameFormat: '{0}.exe'
+  - target: 19
+    name: Windows x64
+    enabled: 1
+    binaryNameFormat: '{0}.exe'
+  variants:
+  - variantName: Build Output
+    selectedIndex: 0
+    values:
+    - App
+    - Visual Studio Solution
+  platformName: PC
+  dataDirNameFormat: '{0}_Data'
+  targetGroup: 1
+--- !u!114 &-4542308294587251398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d962d142a259c394da2bdb301b72eeb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 2
+    name: macOS
+    enabled: 1
+    binaryNameFormat: '{0}.app'
+  variants:
+  - variantName: macOS Architecture
+    selectedIndex: 2
+    values:
+    - Intelx64
+    - Apple Silicon
+    - Universal
+  - variantName: Build Output
+    selectedIndex: 0
+    values:
+    - App
+    - Xcode Project
+  platformName: macOS
+  dataDirNameFormat: '{0}.app/Contents'
+  targetGroup: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5886119a5c7b34d8872ab527ca3e1b, type: 3}
+  m_Name: SuperUnityBuildSettings
+  m_EditorClassIdentifier: 
+  _basicSettings:
+    baseBuildFolder: G:\VoxelCraftBuild
+    buildPath: $VERSION/$RELEASE_TYPE/$PLATFORM
+    openFolderPostBuild: 1
+  _productParameters:
+    buildCounter: 0
+    buildVersion: 1.0.0
+    versionTemplate: 1.0.$BUILD
+    autoGenerate: 0
+    syncWithPlayerSettings: 0
+  _releaseTypeList:
+    releaseTypes:
+    - typeName: Release
+      bundleIdentifier: com.Diamantino-Op.VoxelCraft
+      companyName: Diamantino Op
+      productName: VoxelCraft
+      buildOptions: 0
+      customDefines: 
+      sceneList:
+        enabledScenes:
+        - fileGUID: 554d0e9fed3d87e4e861d6853849a648
+        - fileGUID: 3a699b023ffc2dc4a8012389dbf6f303
+    - typeName: Release Server
+      bundleIdentifier: com.Diamantino-Op.VoxelCraftServer
+      companyName: ' Diamantino Op'
+      productName: VoxelCraft Server
+      buildOptions: 16384
+      customDefines: 
+      sceneList:
+        enabledScenes:
+        - fileGUID: 554d0e9fed3d87e4e861d6853849a648
+        - fileGUID: 3a699b023ffc2dc4a8012389dbf6f303
+    - typeName: Dev
+      bundleIdentifier: com.Diamantino-Op.VoxelCraft
+      companyName: Diamantino Op
+      productName: VoxelCraft
+      buildOptions: 513
+      customDefines: 
+      sceneList:
+        enabledScenes:
+        - fileGUID: 554d0e9fed3d87e4e861d6853849a648
+        - fileGUID: 3a699b023ffc2dc4a8012389dbf6f303
+    - typeName: Dev Server
+      bundleIdentifier: com.Diamantino-Op.VoxelCraft
+      companyName: Diamantino Op
+      productName: VoxelCraft
+      buildOptions: 16897
+      customDefines: 
+      sceneList:
+        enabledScenes:
+        - fileGUID: 554d0e9fed3d87e4e861d6853849a648
+        - fileGUID: 3a699b023ffc2dc4a8012389dbf6f303
+  _platformList:
+    platforms:
+    - {fileID: -7594961136505483749}
+    - {fileID: 726243612212388946}
+    - {fileID: -4542308294587251398}
+  _projectConfigurations:
+    configSet:
+      _Buckets: 02000000ffffffffffffffffffffffffffffffffffffffff15000000080000000b000000ffffffffffffffff0d00000016000000ffffffff060000001900000009000000ffffffff1000000014000000ffffffffffffffffffffffffffffffff0f000000ffffffffffffffffffffffffffffffff01000000ffffffff130000000c000000000000001b000000ffffffff18000000
+      _HashCodes: 878a7279510e9f59134e5c09fe378756ceee4e3995803a142d6dfd48784188317aa34c75d4944960a9a72a2db162015dcc375814eefb5872d971b97943f3a050896e87374cdfc90b3402e40a6f682d7f37671a3456f84069b4ab0750868e3652e7d7ac5a17979f05de491d58f8ebfc30000000000000000000000000000000000000000000000000000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff070000000a0000000400000003000000ffffffff0e00000011000000ffffffff05000000ffffffff12000000ffffffff17000000ffffffff1a000000000000000000000000000000000000000000000000000000000000000000000000000000
+      _Count: 28
+      _Version: 28
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - Release/PC/Windows x64 (App)
+      - Release/PC
+      - Release/Linux/Linux x64
+      - Release/Linux
+      - Release/macOS/macOS (Universal,App)
+      - Release/macOS
+      - Release
+      - Release Server/PC/Windows x64 (App)
+      - Release Server/PC
+      - Release Server/Linux/Linux x64
+      - Release Server/Linux
+      - Release Server/macOS/macOS (Universal,App)
+      - Release Server/macOS
+      - Release Server
+      - Dev/PC/Windows x64 (App)
+      - Dev/PC
+      - Dev/Linux/Linux x64
+      - Dev/Linux
+      - Dev/macOS/macOS (Universal,App)
+      - Dev/macOS
+      - Dev
+      - Dev Server/PC/Windows x64 (App)
+      - Dev Server/PC
+      - Dev Server/Linux/Linux x64
+      - Dev Server/Linux
+      - Dev Server/macOS/macOS (Universal,App)
+      - Dev Server/macOS
+      - Dev Server
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      - 
+      _Values:
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Release/PC/Windows x64 (App)
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Release/Linux/Linux x64
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Release/macOS/macOS (Universal,App)
+      - enabled: 0
+        childKeys:
+        - Release/PC
+        - Release/Linux
+        - Release/macOS
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Release Server/PC/Windows x64 (App)
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Release Server/Linux/Linux x64
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Release Server/macOS/macOS (Universal,App)
+      - enabled: 0
+        childKeys:
+        - Release Server/PC
+        - Release Server/Linux
+        - Release Server/macOS
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Dev/PC/Windows x64 (App)
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Dev/Linux/Linux x64
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Dev/macOS/macOS (Universal,App)
+      - enabled: 1
+        childKeys:
+        - Dev/PC
+        - Dev/Linux
+        - Dev/macOS
+      - enabled: 0
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Dev Server/PC/Windows x64 (App)
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Dev Server/Linux/Linux x64
+      - enabled: 0
+        childKeys: []
+      - enabled: 0
+        childKeys:
+        - Dev Server/macOS/macOS (Universal,App)
+      - enabled: 0
+        childKeys:
+        - Dev Server/PC
+        - Dev Server/Linux
+        - Dev Server/macOS
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+    showViewOptions: 0
+    showConfigs: 0
+    showBuildInfo: 0
+    hideDisabled: 0
+    treeView: 1
+    selectedKeyChain: Dev/PC/Windows x64 (App)
+  _preBuildActions:
+    buildActions: []
+  _postBuildActions:
+    buildActions: []
+--- !u!114 &726243612212388946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc439ce9d1bfb34a821f7d6fabc4fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 24
+    name: Linux x64
+    enabled: 1
+    binaryNameFormat: '{0}.x86_64'
+  variants: []
+  platformName: Linux
+  dataDirNameFormat: '{0}_Data'
+  targetGroup: 1
+--- !u!114 &5473377413021732459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc439ce9d1bfb34a821f7d6fabc4fef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 24
+    name: Linux x64
+    enabled: 1
+    binaryNameFormat: '{0}.x86_64'
+  variants: []
+  platformName: Linux
+  dataDirNameFormat: '{0}_Data'
+  targetGroup: 1

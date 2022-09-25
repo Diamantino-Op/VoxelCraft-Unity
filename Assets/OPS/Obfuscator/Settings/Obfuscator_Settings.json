@@ -65,12 +65,6 @@
           "Key" : "Obfuscate_Assembly_In_Assets_AssemblyDefinitionFiles",
           "Value" : "True",
           "Values" : null
-        },
-        {
-          "Type" : "Bool",
-          "Key" : "Obfuscate_Assembly_In_Packages_AssemblyDefinitionFiles",
-          "Value" : "False",
-          "Values" : null
         }
       ]
     },
@@ -110,12 +104,6 @@
     {
       "Settings_Name" : "Default_Obfuscation_Component_Logging",
       "SettingElement_Array" : [
-        {
-          "Type" : "Bool",
-          "Key" : "Enable_Custom_Log",
-          "Value" : "False",
-          "Values" : null
-        }
       ]
     },
     {
@@ -123,8 +111,8 @@
       "SettingElement_Array" : [
         {
           "Type" : "Bool",
-          "Key" : "Skip_Namespace_ViceVersa",
-          "Value" : "False",
+          "Key" : "Obfuscate_Namespaces",
+          "Value" : "True",
           "Values" : null
         }
       ]
@@ -164,13 +152,55 @@
         },
         {
           "Type" : "Bool",
+          "Key" : "Obfuscate_Class_Abstract",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
           "Key" : "Obfuscate_Class_Generic",
           "Value" : "True",
           "Values" : null
         },
         {
           "Type" : "Bool",
-          "Key" : "Obfuscate_Class_Abstract",
+          "Key" : "Obfuscate_Class_MonoBehaviour",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_MonoBehaviour_Not_Obfuscatable",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_MonoBehaviour_Extern",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_MonoBehaviour_Not_Obfuscatable_Extern",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_ScriptableObject",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_Playable",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Class_Serializable",
           "Value" : "True",
           "Values" : null
         }
@@ -216,13 +246,13 @@
       "SettingElement_Array" : [
         {
           "Type" : "Bool",
-          "Key" : "Obfuscate_Class_Parameter",
+          "Key" : "Obfuscate_Method_Parameter",
           "Value" : "True",
           "Values" : null
         },
         {
           "Type" : "Bool",
-          "Key" : "Obfuscate_Method_Parameter",
+          "Key" : "Obfuscate_Class_Parameter",
           "Value" : "True",
           "Values" : null
         }
@@ -258,6 +288,18 @@
         {
           "Type" : "Bool",
           "Key" : "Obfuscate_Field_Public",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Field_Serializable",
+          "Value" : "True",
+          "Values" : null
+        },
+        {
+          "Type" : "Bool",
+          "Key" : "Obfuscate_Field_Public_Unity",
           "Value" : "True",
           "Values" : null
         },
@@ -342,34 +384,15 @@
     {
       "Settings_Name" : "Default_Obfuscation_Component_Custom_Attributes",
       "SettingElement_Array" : [
-        {
-          "Type" : "Array_String",
-          "Key" : "Attributes_Behave_Like_DoNotRename_Array",
-          "Value" : null,
-          "Values" : [
-          ]
-        }
       ]
     },
     {
       "Settings_Name" : "Default_Obfuscation_Component_Renaming",
       "SettingElement_Array" : [
         {
-          "Type" : "Bool",
-          "Key" : "Enable_Load_Mapping",
-          "Value" : "False",
-          "Values" : null
-        },
-        {
-          "Type" : "Bool",
-          "Key" : "Enable_Save_Mapping",
-          "Value" : "False",
-          "Values" : null
-        },
-        {
-          "Type" : "String",
-          "Key" : "Load_Mapping_FilePath",
-          "Value" : "",
+          "Type" : "Enum",
+          "Key" : "Active_Renaming_Pattern",
+          "Value" : "Default",
           "Values" : null
         }
       ]
@@ -377,25 +400,65 @@
     {
       "Settings_Name" : "Default_Obfuscation_Component_Add_Random_Code",
       "SettingElement_Array" : [
+        {
+          "Type" : "Bool",
+          "Key" : "Enable_Add_Random_Code",
+          "Value" : "True",
+          "Values" : null
+        }
+      ]
+    },
+    {
+      "Settings_Name" : "Default_Obfuscation_Component_Method_ControlFlow",
+      "SettingElement_Array" : [
+        {
+          "Type" : "Bool",
+          "Key" : "Enable_Method_ControlFlow",
+          "Value" : "True",
+          "Values" : null
+        }
       ]
     },
     {
       "Settings_Name" : "Default_Obfuscation_Component_String",
       "SettingElement_Array" : [
+        {
+          "Type" : "Bool",
+          "Key" : "Enable_String_Obfuscation",
+          "Value" : "True",
+          "Values" : null
+        }
       ]
     },
     {
       "Settings_Name" : "Default_Obfuscation_Component_Assembly_Suppress_ILDasm",
       "SettingElement_Array" : [
+        {
+          "Type" : "Bool",
+          "Key" : "Enable_Assembly_Suppress_ILDasm",
+          "Value" : "True",
+          "Values" : null
+        }
+      ]
+    },
+    {
+      "Settings_Name" : "Default_Obfuscation_Component_AntiTampering",
+      "SettingElement_Array" : [
+        {
+          "Type" : "Bool",
+          "Key" : "Enable_AntiTampering_Protection",
+          "Value" : "True",
+          "Values" : null
+        }
       ]
     }
   ],
-  "Version" : "4.0.5",
+  "Version" : "5.0.4",
   "SettingElement_Array" : [
     {
       "Type" : "Bool",
       "Key" : "Global_Enable_Obfuscation",
-      "Value" : "True",
+      "Value" : "False",
       "Values" : null
     }
   ]
