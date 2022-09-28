@@ -62,7 +62,7 @@ namespace VoxelCraft.World.Chunk
 
 		// Informatics
 		private int _chunkSize;
-		private ChunkPos _chunkPos;
+		public ChunkPos _chunkPos;
 		private DataChunk _chunkData;
 
 		/// <summary>
@@ -177,7 +177,8 @@ namespace VoxelCraft.World.Chunk
 			_mesh = GetComponent<MeshFilter>().mesh;
 			_col = GetComponent<MeshCollider>();
 
-			GetComponent<Renderer>().material.SetTexture("_Atlas", world.gameManager.blockManager.atlas);
+			GetComponent<Renderer>().material.SetTexture("_Atlas", world.gameManager.blockManager.albedoAtlas);
+			GetComponent<Renderer>().material.SetTexture("_AtlasNormal", world.gameManager.blockManager.normalAtlas);
 		}
 
 		void Update()

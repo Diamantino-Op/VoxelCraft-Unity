@@ -63,13 +63,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d621e9693afc54eb6ddbd08242179b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atlas: {fileID: 0}
+  albedoAtlas: {fileID: 0}
+  normalAtlas: {fileID: 0}
+  heightAtlas: {fileID: 0}
   blocks:
   - blockTextures:
-    - texture: {fileID: 2800000, guid: d703e9ff4f9496a43a5ff91114a05647, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: d703e9ff4f9496a43a5ff91114a05647, type: 3}
+      normalTexture: {fileID: 2800000, guid: 006205d19e55fa94e9fd75f90b858a1d, type: 3}
+      heightTexture: {fileID: 2800000, guid: 553b560773753ad4bbf223bcc6405fd4, type: 3}
       face: 6
-    textures:
-    - {fileID: 2800000, guid: d703e9ff4f9496a43a5ff91114a05647, type: 3}
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Coal Ore
     unbreakable: 0
@@ -78,9 +83,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+      normalTexture: {fileID: 2800000, guid: 21c5f64451b626849897584ddbb532c1, type: 3}
+      heightTexture: {fileID: 2800000, guid: c1cd9c5b7c07f2d40b7bb25d34fb648f, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Dirt
     unbreakable: 0
@@ -89,9 +98,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 40148faa9701f5f4b938ab27195ef688, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 40148faa9701f5f4b938ab27195ef688, type: 3}
+      normalTexture: {fileID: 2800000, guid: 7ba10d00ef4cefa4eaf59aca91d7a81f, type: 3}
+      heightTexture: {fileID: 2800000, guid: e73188ecfb7163a40a1f64307085539a, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Glass
     unbreakable: 0
@@ -100,13 +113,21 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: be15989554de1464da87bafdab0e9485, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: be15989554de1464da87bafdab0e9485, type: 3}
+      normalTexture: {fileID: 2800000, guid: 169d5b918a7ee274ea949aea5b36b9e4, type: 3}
+      heightTexture: {fileID: 2800000, guid: b0dd4f38b6b19fa40a8a45a2d27057ce, type: 3}
       face: 0
-    - texture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: c9a1999166e0e2a43b946861673576c4, type: 3}
+      normalTexture: {fileID: 2800000, guid: 21c5f64451b626849897584ddbb532c1, type: 3}
+      heightTexture: {fileID: 2800000, guid: c1cd9c5b7c07f2d40b7bb25d34fb648f, type: 3}
       face: 1
-    - texture: {fileID: 2800000, guid: 8ae9d09ccb8f9b64281d265c7fc9be8d, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 8ae9d09ccb8f9b64281d265c7fc9be8d, type: 3}
+      normalTexture: {fileID: 2800000, guid: dd0b55cccd736de4198835d54956d124, type: 3}
+      heightTexture: {fileID: 2800000, guid: 361f4937e3d1ebf478f5261adbe5edf6, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Grass Block
     unbreakable: 0
@@ -115,9 +136,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 0decf0ff517e40541beda4cf942c8220, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 0decf0ff517e40541beda4cf942c8220, type: 3}
+      normalTexture: {fileID: 2800000, guid: 83907d0f50c42934fbc47caba9b8263e, type: 3}
+      heightTexture: {fileID: 2800000, guid: 62db5beb56d6eaf4db534d9d7f7d1214, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Oak Leaves
     unbreakable: 0
@@ -126,13 +151,21 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+      normalTexture: {fileID: 2800000, guid: b8c8cd3aa0cf93b449f5fcf0761eae36, type: 3}
+      heightTexture: {fileID: 2800000, guid: e900600a141250b4e839563a7d8685fd, type: 3}
       face: 0
-    - texture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 0e547d70dfb8ae645a579e52d1768ce3, type: 3}
+      normalTexture: {fileID: 2800000, guid: b8c8cd3aa0cf93b449f5fcf0761eae36, type: 3}
+      heightTexture: {fileID: 2800000, guid: e900600a141250b4e839563a7d8685fd, type: 3}
       face: 1
-    - texture: {fileID: 2800000, guid: bb55a54e2ccec314aaf0f0efaafe0aa3, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: bb55a54e2ccec314aaf0f0efaafe0aa3, type: 3}
+      normalTexture: {fileID: 2800000, guid: bafc12b8f6e4f364e9d5c94315f74c8a, type: 3}
+      heightTexture: {fileID: 2800000, guid: e1e5fd4f7fed6f64aa14a186cd85cb4d, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Oak Log
     unbreakable: 0
@@ -141,9 +174,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 0d995eb5ab33ed442a6275bd1e2c2332, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 0d995eb5ab33ed442a6275bd1e2c2332, type: 3}
+      normalTexture: {fileID: 2800000, guid: 507efb6050cfb044a9e903406ed90e02, type: 3}
+      heightTexture: {fileID: 2800000, guid: c684508809f1a5c43b8c70c9c9a4eb29, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Sand
     unbreakable: 0
@@ -152,9 +189,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 1d9c29672d3d9c64590e5947ca333cfb, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 1d9c29672d3d9c64590e5947ca333cfb, type: 3}
+      normalTexture: {fileID: 2800000, guid: cc7a241131f332e41ac71988b4d2886b, type: 3}
+      heightTexture: {fileID: 2800000, guid: 91ae7fb99c365b841872013541213c21, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Stone
     unbreakable: 0
@@ -163,9 +204,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: 5026eef4dd4553341b9953026ac49303, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: 5026eef4dd4553341b9953026ac49303, type: 3}
+      normalTexture: {fileID: 2800000, guid: 1d1b92885a9cb59419ea591ac71087f0, type: 3}
+      heightTexture: {fileID: 2800000, guid: df0f66d4ba1668b49a17e35f49184a3a, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Water
     unbreakable: 0
@@ -174,9 +219,13 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures:
-    - texture: {fileID: 2800000, guid: a2a79b454ccf21447b5a981741c85039, type: 3}
+    - albedoTexture: {fileID: 2800000, guid: a2a79b454ccf21447b5a981741c85039, type: 3}
+      normalTexture: {fileID: 2800000, guid: 1bd279a4779c7b34b9bf799bdbdbfee4, type: 3}
+      heightTexture: {fileID: 2800000, guid: cfcfe17214c5c6341b6847cd722cc02f, type: 3}
       face: 6
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Bedrock
     unbreakable: 0
@@ -185,7 +234,9 @@ MonoBehaviour:
     blastResistance: 1
     hardness: 1
   - blockTextures: []
-    textures: []
+    albedoTextures: []
+    normalTextures: []
+    heightTextures: []
     id: 0
     name: Air
     unbreakable: 1

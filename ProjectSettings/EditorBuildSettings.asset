@@ -12,7 +12,13 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/World.unity
     guid: 3a699b023ffc2dc4a8012389dbf6f303
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 36e1f8e4b300f184086dc2f8c61b1d47,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: fb264bddb53c5304fa49fa14b74b481b, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 4d3d59711fb25da4890b14a5612b50d0,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: bb786d3e0906f19438253f013d7be6cd,
       type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: f86947ee2cf2c56438bfd98d86404eb5,
       type: 2}

@@ -7,7 +7,9 @@ namespace VoxelCraft.World.Block
 	public class BlockManager : MonoBehaviour
 	{
         [HideInInspector]
-		public Texture2D atlas;
+		public Texture2D albedoAtlas;
+		[HideInInspector]
+		public Texture2D normalAtlas;
 
 		public Dictionary<int, Block> blockList = new Dictionary<int, Block>();
 		public static Dictionary<int, Block> staticBlockList = new Dictionary<int, Block>();
@@ -64,10 +66,11 @@ namespace VoxelCraft.World.Block
 
 			staticBlockList = blockList;
 
-			Atlas at = BlockAtlasCreator.generateAtlas(blockList);
+			Atlas at = BlockAtlasCreator.generateAlbedoAtlas(blockList);
 
 			tUnit = at.tUnit;
-			atlas = at.atlas;
+			albedoAtlas = at.atlas;
+			normalAtlas = BlockAtlasCreator.generateNormalAtlas(blockList);
 			textureUVs = at.uvDictionary;
 		}
 
@@ -118,12 +121,13 @@ namespace VoxelCraft.World.Block
 			lastBlockId++;
         }
 
-		public void regenerateBlockAtlas()
+		public void regenerateBlockAtlases()
         {
-			Atlas at = BlockAtlasCreator.generateAtlas(blockList);
+			Atlas at = BlockAtlasCreator.generateAlbedoAtlas(blockList);
 
 			tUnit = at.tUnit;
-			atlas = at.atlas;
+			albedoAtlas = at.atlas;
+			normalAtlas = BlockAtlasCreator.generateNormalAtlas(blockList);
 			textureUVs = at.uvDictionary;
 		}
 

@@ -42,6 +42,19 @@ namespace VoxelCraft
             playerTransform.Rotate(0f, lookAxis.x * cameraVelocity.x, 0f);
 
             playerCamera.transform.Rotate(-lookAxis.y * cameraVelocity.y, 0f, 0f);
+
+            if (playerCamera.transform.rotation.x > 90f)
+            {
+                float diffX = playerCamera.transform.rotation.x - 90f;
+
+                playerCamera.transform.Rotate(-diffX, 0, 0);
+            }
+            else if (playerCamera.transform.rotation.x < -90f)
+            {
+                float diffX = playerCamera.transform.rotation.x + 90f;
+
+                playerCamera.transform.Rotate(diffX, 0, 0);
+            }
         }
     }
 }

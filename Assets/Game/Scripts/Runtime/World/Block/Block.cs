@@ -13,7 +13,9 @@ namespace VoxelCraft.World.Block
         public List<BlockTexture> blockTextures;
 
         [HideInInspector]
-        public List<Texture2D> textures = new List<Texture2D>();
+        public List<Texture2D> albedoTextures = new List<Texture2D>();
+        [HideInInspector]
+        public List<Texture2D> normalTextures = new List<Texture2D>();
         [HideInInspector]
         public int id;
         [HideInInspector]
@@ -33,8 +35,9 @@ namespace VoxelCraft.World.Block
 
             foreach(BlockTexture bt in blockTextures)
             {
-                textures.Add(bt.texture);
-                UVs.Add(bt.face, bt.texture.name);
+                albedoTextures.Add(bt.albedoTexture);
+                normalTextures.Add(bt.normalTexture);
+                UVs.Add(bt.face, bt.albedoTexture.name);
             }
         }
     }
@@ -42,7 +45,8 @@ namespace VoxelCraft.World.Block
     [Serializable]
     public class BlockTexture
     {
-        public Texture2D texture;
+        public Texture2D albedoTexture;
+        public Texture2D normalTexture;
         public Dir face;
     }
 }
